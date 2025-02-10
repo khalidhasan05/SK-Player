@@ -28,13 +28,21 @@ class MainActivity : ComponentActivity() {
 fun getAllAudio(context: Context): MutableList<Audio> {
     var audioList = mutableListOf<Audio>()
 
+    val collection = if (Build.VERSION.SDK_INT >= 30) {
+        MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+    } else MediaStore.Files.getContentUri("external")
 
 
-    val collection = MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL)
+    val projection = arrayOf(
+        MediaStore.Files.FileColumns._ID,
+        MediaStore.Files.FileColumns.DISPLAY_NAME,
+        MediaStore.Files.FileColumns.DURATION,
+        MediaStore.Files.FileColumns.SIZE,
+    )
 
         val query = context.contentResolver.query(
-            MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL),
-            null,
+           collection,
+            projection,
             null,
             null,
             null
