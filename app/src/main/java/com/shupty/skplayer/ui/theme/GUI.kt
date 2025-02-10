@@ -3,7 +3,6 @@ package com.shupty.skplayer.ui.theme
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Build
-import android.provider.MediaStore
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -31,7 +30,7 @@ import com.shupty.skplayer.getAllAudio
 @RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun Gui(context: Context) {
-    val audio = getAllAudio(context) + getAllAudio(context)
+    val audio = getAllAudio(context)
     var isPlaying by remember { mutableStateOf(true) }
     var mediaPlayer: MediaPlayer? by remember { mutableStateOf(null) }
     var currentPlayingIndex by remember { mutableIntStateOf(0) }
@@ -105,7 +104,7 @@ fun Gui(context: Context) {
                 ),
             ) {
 
-                    Text(audio.size.toString() + MediaStore.Audio.Media.getContentUri(MediaStore.VOLUME_EXTERNAL).toString())
+                    Text(audio.size.toString())
             }
         }
 
